@@ -1,0 +1,580 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API de prueba de Generaciones y Alumnos - Desafío Latam",
+    "description": "Esta API de tipo WS se utliza como prueba para practicar el consumo de APIs restful con JavaScript. CORS deshabilitado y SSL activo. Diseñada para ADL G1 - Grupo 2",
+    "contact": {
+      "name": "Raúl Pardo Zurita",
+      "url": "https://www.bahatech.cl",
+      "email": "bahamut@bahatech.cl"
+    },
+    "version": "V2F"
+  },
+  "servers": [
+    {
+      "url": "https://www.bahatech.cl:8443",
+      "description": "Inferred Url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Servicios del WS",
+      "description": "Desplegar para revisar los endpoints disponibles"
+    },
+    {
+      "name": "auth-controller",
+      "description": "Auth Controller"
+    }
+  ],
+  "paths": {
+    "/t_generaciones_ws/alumnos/agregar": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "Servicios del WS"
+        ],
+        "summary": "Agrega un alumno a una generación",
+        "description": "Se debe proporcionar info del alumno como JSON",
+        "operationId": "agregarAlumnoGeneracionUsingPOST",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestAgregarAlumno"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseAgregarAlumno"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/t_generaciones_ws/alumnos/eliminar/{id}": {
+      "delete": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "Servicios del WS"
+        ],
+        "summary": "Elimina un alumno del sistema",
+        "description": "Enviar por parámetros una ID de alumno ADL que exista",
+        "operationId": "eliminarAlumnoUsingDELETE",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de alumno ADL",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseEliminarAlumno"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/t_generaciones_ws/alumnos/modificar": {
+      "put": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "Servicios del WS"
+        ],
+        "summary": "Modifica info de un alumno",
+        "description": "Se debe proporcionar info del alumno como JSON",
+        "operationId": "modificarAlumnoUsingPUT",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestModificarAlumno"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModificarAlumno"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/t_generaciones_ws/generacion/alumnos/{id}": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "Servicios del WS"
+        ],
+        "summary": "Obtiene todos los alumnos de una generacion",
+        "description": "Enviar por parámetros una ID de generación ADL que exista",
+        "operationId": "obtenerAlumnosPorGeneracionUsingGET",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de generación ADL",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseAlumnosPorGeneracion"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/t_generaciones_ws/generaciones": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "Servicios del WS"
+        ],
+        "summary": "Obtiene todas las generaciones registradas de ADL",
+        "description": "No se necesitan parámetros u objetos de entrada",
+        "operationId": "obtenerGeneracionesUsingGET",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseGeneraciones"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/t_generaciones_ws/authenticate": {
+      "post": {
+        "tags": [
+          "auth-controller"
+        ],
+        "summary": "generateAuthenticationToken",
+        "operationId": "generateAuthenticationTokenUsingPOST",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JwtRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/t_generaciones_ws/usuarios/obtenerUsuario": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "auth-controller"
+        ],
+        "summary": "Obtiene un usuario por su login",
+        "description": "Enviar en JSON de un usuario que exista",
+        "operationId": "obtenerUsuarioPorUsernameUsingPOST",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ObtenerUsuarioRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObtenerUsuarioResponse"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "Alumno": {
+        "title": "Alumno",
+        "type": "object",
+        "properties": {
+          "alumno": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "edad": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "exalumno": {
+            "type": "boolean"
+          },
+          "generacion": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nombre": {
+            "type": "string"
+          }
+        }
+      },
+      "Generacion": {
+        "title": "Generacion",
+        "type": "object",
+        "properties": {
+          "alias": {
+            "type": "string"
+          },
+          "alumnos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alumno"
+            }
+          },
+          "generacion": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "profesor": {
+            "type": "string"
+          },
+          "tutor": {
+            "type": "string"
+          }
+        }
+      },
+      "JwtRequest": {
+        "title": "JwtRequest",
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          }
+        }
+      },
+      "ObtenerUsuarioRequest": {
+        "title": "ObtenerUsuarioRequest",
+        "type": "object",
+        "properties": {
+          "usuario": {
+            "type": "string"
+          }
+        }
+      },
+      "ObtenerUsuarioResponse": {
+        "title": "ObtenerUsuarioResponse",
+        "type": "object",
+        "properties": {
+          "usuario": {
+            "$ref": "#/components/schemas/UsuarioOut"
+          }
+        }
+      },
+      "RequestAgregarAlumno": {
+        "title": "RequestAgregarAlumno",
+        "type": "object",
+        "properties": {
+          "edad": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "exalumno": {
+            "type": "boolean"
+          },
+          "generacion": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nombre": {
+            "type": "string"
+          }
+        }
+      },
+      "RequestModificarAlumno": {
+        "title": "RequestModificarAlumno",
+        "type": "object",
+        "properties": {
+          "alumno": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "edad": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "exalumno": {
+            "type": "boolean"
+          },
+          "generacion": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nombre": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseAgregarAlumno": {
+        "title": "ResponseAgregarAlumno",
+        "type": "object",
+        "properties": {
+          "estado": {
+            "$ref": "#/components/schemas/ResponseDetail"
+          }
+        }
+      },
+      "ResponseAlumnosPorGeneracion": {
+        "title": "ResponseAlumnosPorGeneracion",
+        "type": "object",
+        "properties": {
+          "alumnos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alumno"
+            }
+          },
+          "estado": {
+            "$ref": "#/components/schemas/ResponseDetail"
+          }
+        }
+      },
+      "ResponseDetail": {
+        "title": "ResponseDetail",
+        "type": "object",
+        "properties": {
+          "codigo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "detalle": {
+            "type": "string"
+          },
+          "mensaje": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseEliminarAlumno": {
+        "title": "ResponseEliminarAlumno",
+        "type": "object",
+        "properties": {
+          "estado": {
+            "$ref": "#/components/schemas/ResponseDetail"
+          }
+        }
+      },
+      "ResponseGeneraciones": {
+        "title": "ResponseGeneraciones",
+        "type": "object",
+        "properties": {
+          "estado": {
+            "$ref": "#/components/schemas/ResponseDetail"
+          },
+          "generaciones": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Generacion"
+            }
+          }
+        }
+      },
+      "ResponseModificarAlumno": {
+        "title": "ResponseModificarAlumno",
+        "type": "object",
+        "properties": {
+          "estado": {
+            "$ref": "#/components/schemas/ResponseDetail"
+          }
+        }
+      },
+      "UsuarioOut": {
+        "title": "UsuarioOut",
+        "type": "object",
+        "properties": {
+          "fechaCreacion": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "usuario": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
